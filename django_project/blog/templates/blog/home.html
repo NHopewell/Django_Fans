@@ -1,12 +1,12 @@
 {% extends "blog/base.html" %}
 {% block content %}
     {% for post in posts %}
-        {% if post.author_status == 'admin' %}
+        {% if post.author.username == 'Nick' %}
         <article class="media content-section admin-section">
             <div class="media-body">
             <div class="article-metadata admin-metadata">
                 <a class="mr-2" href="#"><i class="fas fa-crown"></i> {{ post.author }} <small>[admin]</small></a>
-                <small>{{ post.date_posted }}</small>
+                <small>{{ post.date_posted|date:"M. d, Y" }}</small>
             </div>
             <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
             <p class="article-content admin-content">{{ post.content }}</p>
@@ -17,7 +17,7 @@
             <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2" href="#">{{ post.author }}</a>
-                <small>{{ post.date_posted }}</small>
+                <small>{{ post.date_posted|date:"M. d, Y" }}</small>
             </div>
             <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>

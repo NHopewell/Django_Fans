@@ -1,26 +1,9 @@
 from django.shortcuts import render # looks in templated folder
-from django.http import HttpResponse
-
-posts = [
-    {
-        'author': 'Nick',
-        'author_status': 'admin',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'Aug 30, 2020'
-    },
-    {
-        'author': 'Jim',
-        'author_status': 'user',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'Aug 31, 2020'
-    }
-]
+from .models import Post
 
 def home(request):
     context = {
-        'posts': posts
+        'posts': Post.objects.all()
     }
     return render(request, 'blog/home.html', context)
 
