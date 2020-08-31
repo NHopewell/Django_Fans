@@ -174,15 +174,13 @@ a.article-title:hover {
 
 .admin-metadata {
   padding-bottom: 1px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   border-bottom: 1px solid #e3e3e3;
 }
 
 .admin-metadata a {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: #40514e;
   font-family: "Raleway", sans-serif;
 }
