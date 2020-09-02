@@ -9,7 +9,7 @@ def register(request):
         # create a form with data entered by user
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            username = form.clean_data.get("username") #clean_data dict
+            username = form.cleaned_data.get("username") #clean_data dict
             messages.success(request, f'Account created for {username}.')
             
             return redirect('blog-home')
@@ -17,5 +17,5 @@ def register(request):
         # create a blank registration form with django forms
         form = UserCreationForm()
 
-    return render(request, 'users/register.html', {'form': form})
+        return render(request, 'users/register.html', {'form': form})
 
