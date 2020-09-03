@@ -13,9 +13,9 @@ def register(request):
             form.save()
             # extract username and flash success
             username = form.cleaned_data.get("username") #clean_data dict
-            messages.success(request, f'Account created for {username}.')
+            messages.success(request, f'Account created for {username}. Please log in.')
             
-            return redirect('blog-home')
+            return redirect('login')
     else:
         # create a blank registration form with django forms
         form = UserRegisterForm()
