@@ -3,6 +3,9 @@ from  django.utils import timezone
 from django.contrib.auth.models import User
 
 class Post(models.Model):
+    """
+    One to many relationship from user to post
+    """
     # each attribte is a field in the db
     title = models.CharField(max_length=100) # character field with max len = 100 chars
     content = models.TextField() # unrestricted text
