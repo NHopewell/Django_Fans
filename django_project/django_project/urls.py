@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views  # django views for login/out
 from users import views as user_views # user views
 
@@ -27,3 +29,9 @@ urlpatterns = [
     # using blog app as homepage ''
     path('', include('blog.urls')),
 ]
+
+# serve files uploaded from user (when in debug mode) - let's media work in browser
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
