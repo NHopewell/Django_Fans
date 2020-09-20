@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 # Create your views here.
 
@@ -27,5 +27,14 @@ def register(request):
 @login_required
 def profile(request):
 
-    return render(request, 'users/profile.html')
+    # these will be rendered together and look like one form in our profile.html
+    user_u_form = UserUpdateForm()
+    profile_u_form = ProfileUpdateForm()
+
+    context = {
+        'user_u_form': user_u_form,
+        'profile_u_form': profile_u_form
+    }
+
+    return render(request, 'users/profile.html', context)
 

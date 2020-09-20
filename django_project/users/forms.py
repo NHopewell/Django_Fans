@@ -39,4 +39,5 @@ class ProfileUpdateForm(forms.ModelForm):
     """
     class Meta:
         model = Profile
+        # allow user to update profile image
         fields = ['image']

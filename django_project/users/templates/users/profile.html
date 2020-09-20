@@ -10,6 +10,17 @@
             <p class="text-secondary">{{ user.email }}</p>
         </div>
         </div>
-        <!-- FORM HERE -->
+        <!-- UPDATE FORM HERE -->
+        <form method="POST" enctype="multipart/form-data"> <!-- DO NOT FORGET THIS TAG OR YOUR IMAGE WILL NOT SAVE-->
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Details</legend>
+                {{ user_u_form|crispy }}
+                {{ profle_u_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Update</button>
+            </div>
+        </form>
     </div>
 {% endblock content %}
