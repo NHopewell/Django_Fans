@@ -27,9 +27,26 @@ def register(request):
 @login_required
 def profile(request):
 
-    # these will be rendered together and look like one form in our profile.html
-    user_u_form = UserUpdateForm()
-    profile_u_form = ProfileUpdateForm()
+    if request.method == 'POST':
+        # these will be rendered together and look like one form in our profile.html
+        # each form expects an instance of a model (user, and profile) and will
+        # auto populate the form with associated details
+        user_u_form = UserUpdateForm(request.POST, 
+                                     instance=request.user)
+        profile_u_form = ProfileUpdateForm(request.POST,
+                                           request.FILES, 
+                                           instance=request.user.profile)
+    
+        if user_u_form.is_valid() and profile_u_form.is_valid():
+            user_u_form.save()
+            profile_u_form.save()
+
+            messages.success(request, f'Your account has been updated')
+            
+            return redirect('profile')
+    else:
+        user_u_form = UserUpdateForm(instance=request.user)
+        profile_u_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
         'user_u_form': user_u_form,
