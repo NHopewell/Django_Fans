@@ -1,5 +1,9 @@
 from django.shortcuts import render # looks in templates folder
-from django.views.generic import ListView, DetailView
+from django.views.generic import (
+    ListView, 
+    DetailView, 
+    CreateView
+)
 from .models import Post
 
 def home(request):
@@ -24,6 +28,19 @@ class PostDetailView(DetailView):
     """
     model = Post
     context_object_name = 'post'
+
+class PostCreateView(CreateView):
+    """
+    Post create route: blog/post_create.html route
+    """
+    model = Post
+    fields = ['title', 'content']
+    
+    # override form_valid to add author before form is submitted
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+
+        return super().form_valid(form)
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
