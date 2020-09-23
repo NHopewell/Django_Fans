@@ -17,7 +17,7 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         """override save() to resize img to save
            room on file system"""
-        super().save()
+        super().save(*args, **kwargs)
 
         # resive img if largerß
         img = Image.open(self.image.path)
