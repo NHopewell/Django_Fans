@@ -4,7 +4,8 @@ from .views import (
     PostListView, 
     PostDetailView, 
     PostCreateView,
-    PostUpdateView
+    PostUpdateView,
+    PostDeleteView
 )
 from . import views
 
@@ -16,7 +17,9 @@ urlpatterns = [
     # post create route
     path('post/new/', PostCreateView.as_view(), name="post-create"),
     # post update route, pk = primary key
-    path('post/<int:pk>/update', PostUpdateView.as_view(), name="post-update"),
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name="post-update"),
+    # post delete route, pk = primary key
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name="post-delete"),
     # about route (blog/about/)
     path('about/', views.about, name="blog-about"),
 ]
