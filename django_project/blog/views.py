@@ -1,4 +1,5 @@
 from django.shortcuts import render # looks in templates folder
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -29,7 +30,7 @@ class PostDetailView(DetailView):
     model = Post
     context_object_name = 'post'
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     """
     Post create route: blog/post_create.html route
     """
