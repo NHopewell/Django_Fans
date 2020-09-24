@@ -3,7 +3,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView, 
     DetailView, 
-    CreateView
+    CreateView,
+    UpdateView
 )
 from .models import Post
 
@@ -31,6 +32,19 @@ class PostDetailView(DetailView):
     context_object_name = 'post'
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    """
+    Post create route: blog/post_create.html route
+    """
+    model = Post
+    fields = ['title', 'content']
+    
+    # override form_valid to add author before form is submitted
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+
+        return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin, UpdateView):
     """
     Post create route: blog/post_create.html route
     """

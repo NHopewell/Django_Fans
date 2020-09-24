@@ -3,7 +3,8 @@ from django.urls import path
 from .views import (
     PostListView, 
     PostDetailView, 
-    PostCreateView
+    PostCreateView,
+    PostUpdateView
 )
 from . import views
 
@@ -14,6 +15,8 @@ urlpatterns = [
     path('post/<int:pk>/', PostDetailView.as_view(), name="post-detail"),
     # post create route
     path('post/new/', PostCreateView.as_view(), name="post-create"),
+    # post update route, pk = primary key
+    path('post/<int:pk>/update', PostUpdateView.as_view(), name="post-update"),
     # about route (blog/about/)
     path('about/', views.about, name="blog-about"),
 ]
