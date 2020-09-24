@@ -1,28 +1,40 @@
 {% extends "blog/base.html" %}
 {% block content %}
-    {% if post.author.username == 'Nick' %}
-    <article class="media content-section admin-section">
-        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-        <div class="media-body">
+{% if post.author.username == 'Nick' %}
+<article class="media content-section admin-section">
+    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+    <div class="media-body">
         <div class="article-metadata admin-metadata">
             <a class="mr-2" href="#"><i class="fas fa-crown"></i> {{ post.author }} <small>[admin]</small></a>
             <small>{{ post.date_posted|date:"M. d, Y" }}</small>
         </div>
+        <div>
+            {% if post.author == user%}
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+            {% endif %}
+        </div>
         <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
         <p class="article-content admin-content">{{ post.content }}</p>
-        </div>
-    </article>
-    {% else %}
-    <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-        <div class="media-body">
+    </div>
+</article>
+{% else %}
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+    <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ post.author }}</a>
             <small>{{ post.date_posted|date:"M. d, Y" }}</small>
         </div>
+        <div>
+            {% if post.author == user%}
+                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+            {% endif %}
+            </div>
         <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
-        </div>
-    </article>
-    {% endif %}
+    </div>
+</article>
+{% endif %}
 {% endblock content %}
