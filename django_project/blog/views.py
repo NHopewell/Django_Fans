@@ -27,6 +27,7 @@ class PostListView(ListView):
     template_name = 'blog/home.html' #Default convention: <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted'] # order posts ascending
+    paginate_by = 8 # paginate home page 8 posts per
 
 class PostDetailView(DetailView):
     """
