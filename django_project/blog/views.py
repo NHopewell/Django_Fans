@@ -1,8 +1,9 @@
-from django.shortcuts import render # looks in templates folder
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import (
     LoginRequiredMixin, 
     UserPassesTestMixin
 )
+from django.contrib.auth.models import User
 from django.views.generic import (
     ListView, 
     DetailView, 
@@ -27,7 +28,27 @@ class PostListView(ListView):
     template_name = 'blog/home.html' #Default convention: <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted'] # order posts ascending
-    paginate_by = 8 # paginate home page 8 posts per
+    paginate_by = 4 # paginate home page 8 posts per
+
+class UserPostListView(ListView):
+    """
+    User posts route: blog/user_posts.html
+    ListView: contains list of Post objects for that user
+    """
+    model = Post
+    template_name = 'blog/user_post.html' 
+    context_object_name = 'posts'
+    paginate_by = 4
+
+    def get_queryset(self):
+        """
+        Override to change what the ListView renders
+        """
+        # get user obj from db if exists, else return 404
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+
+        # filter posts by user, order by date ascending
+        return Post.objects.filter(author=user).order_by('-date_posted')
 
 class PostDetailView(DetailView):
     """
