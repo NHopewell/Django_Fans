@@ -28,7 +28,7 @@ urlpatterns = [
     path('profile/', user_views.profile, name='profile'),
 
     path('login/', auth_views.LoginView.as_view(
-            template_name="usÍers/login.html"), 
+            template_name="users/login.html"), 
         name='login'), #tells django to look in users path
 
     path('logout/', auth_views.LogoutView.as_view(
@@ -44,6 +44,11 @@ urlpatterns = [
         auth_views.PasswordResetDoneView.as_view(
             template_name="users/password_reset_done.html"), 
         name='password_reset_done'),
+
+    path('password-reset-confirm/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="users/password_reset_confirm.html"), 
+        name='password_reset_confirm'),
 
     # using blog app as homepage ''
     path('', include('blog.urls')),
