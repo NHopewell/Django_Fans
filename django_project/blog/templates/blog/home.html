@@ -11,6 +11,7 @@
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title }}</a></h2>
             <p class="article-content admin-content">{{ post.content }}</p>
+            <a class="text-secondary" href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
             </div>
         </article>
         {% else %}
@@ -23,6 +24,7 @@
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id%}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
+            <a class="text-secondary" href="{% url 'post-detail' post.id %}">Comments: {{ post.comments.count }}</a>
             </div>
         </article>
         {% endif %}

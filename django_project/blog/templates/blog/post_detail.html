@@ -37,6 +37,9 @@
     </div>
 </article>
 <hr>
+<div>
+    <a class="btn btn-secondary" href="{% url 'comment-create' post.id %}">comment</a>
+</div>
 {% for comment in post.comments.all %}
 <article class="media content-section">
     <div class="media-body">

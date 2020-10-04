@@ -6,6 +6,7 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
+    CommentCreateView,
     CommentUpdateView,
     CommentDeleteView,
     UserPostListView
@@ -25,10 +26,14 @@ urlpatterns = [
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name="post-update"),
     # post delete route, pk = primary key
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name="post-delete"),
+
+    # comment create route
+    path('post/<int:pk>/comment/', CommentCreateView.as_view(), name="comment-create"),
     # comment update route   
-    path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name="comment-update"),
+    path('post/<int:pk>/comment/update/', CommentUpdateView.as_view(), name="comment-update"),
     # comment delete route
-    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name="comment-delete"),
+    path('post/<int:pk>/comment/delete/', CommentDeleteView.as_view(), name="comment-delete"),
+
     # about route (blog/about/)
     path('about/', views.about, name="blog-about"),
 ]

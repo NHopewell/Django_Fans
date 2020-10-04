@@ -113,12 +113,25 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         # ensure current user is post author
         return True if self.request.user == post.author else False
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    """
+    Post create route: blog/post_create.html route
+    """
+    model = Comment
+    fields = ['author', 'content']
+    
+    # override form_valid to add author before form is submitted
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+
+        return super().form_valid(form)
+
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
     Post create route: blog/post_create.html route
     """
     model = Comment
-    fields = ['content']
+    fields = ['author', 'content']
 
     def form_valid(self, form):
         """ 
