@@ -5,6 +5,7 @@ from django.urls import reverse
 
 class Post(models.Model):
     """
+    Post model for new user posts.
     One to many relationship from user to post
     """
     # each attribte is a field in the db
@@ -26,3 +27,17 @@ class Post(models.Model):
         post-detail url expects <int: pk>
         """
         return reverse('post-detail', kwargs={'pk': self.pk})
+
+class Comment(models.Model):
+    """
+    Comment model for commenting on posts.
+    """
+    post = models.ForeignKey('blog.Post', 
+        on_delete=models.CASCADE, 
+        related_name='comments')
+    content = models.TextField() # unrestricted text
+    date_posted = models.DateTimeField(default=timezone.now)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.content
