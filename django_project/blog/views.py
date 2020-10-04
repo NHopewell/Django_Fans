@@ -11,7 +11,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post
+from .models import Post, Comment
 
 def home(request):
     context = {
@@ -112,6 +112,49 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         # ensure current user is post author
         return True if self.request.user == post.author else False
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    """
+    Post create route: blog/post_create.html route
+    """
+    model = Comment
+    fields = ['content']
+
+    def form_valid(self, form):
+        """ 
+        override form_valid to add author before form is submitted
+        """
+        form.instance.author = self.request.user
+
+        return super().form_valid(form)
+
+    def test_func(self):
+        """
+        UserPassesTestMixin method to validate current
+        before attempting to update a post
+        """
+        # get current post
+        comment = self.get_object()
+        # ensure current user is post author
+        return True if self.request.user == comment.author else False
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    """
+    Post Detail route: blog/post_detail.html route
+    """
+    model = Comment
+    success_url = "/"
+
+    def test_func(self):
+        """
+        UserPassesTestMixin method to validate current
+        before attempting to update a post
+        """
+        # get current post
+        comment = self.get_object()
+        # ensure current user is post author
+        return True if self.request.user == comment.author else False
 
 
 def about(request):
