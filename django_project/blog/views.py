@@ -40,7 +40,7 @@ class UserPostListView(ListView):
     context_object_name = 'posts'
     paginate_by = 4
 
-    def get_queryset(self):
+    def get_queset(self):
         """
         Override to change what the ListView renders
         """
