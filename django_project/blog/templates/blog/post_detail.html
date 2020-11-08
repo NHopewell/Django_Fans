@@ -44,7 +44,7 @@
 <article class="media content-section">
     <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-post' post.author.username %}">{{ comment.author }}</a>
+            <a class="mr-2" href="{% url 'user-post' comment.author.username %}">{{ comment.author }}</a>
             <small>{{ comment.date_posted|date:"M. d, Y" }}</small>
         </div>
         <div>

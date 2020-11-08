@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.contrib.auth.mixins import (
     LoginRequiredMixin, 
     UserPassesTestMixin
@@ -47,11 +48,6 @@ class UserPostListView(ListView):
         """
         # get user obj from db if exists, else return 404
         user = get_object_or_404(User, username=self.kwargs.get('username'))
-
-        print('>>>>>>>>')
-        print(user)
-        print('>>>>>>>>')
-
 
         # filter posts by user, order by date ascending
         return Post.objects.filter(author=user)
@@ -128,10 +124,14 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     
     # override form_valid to add author before form is submitted
     def form_valid(self, form):
-        form.instance.post = Post.objects.get(pk=self.kwargs.get("id"))
+        form.instance.post = Post.objects.get(pk=self.kwargs.get("pk"))
         form.instance.author = self.request.user
 
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.kwargs.get("pk")})
+
 
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """
