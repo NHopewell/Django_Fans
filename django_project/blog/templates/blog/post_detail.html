@@ -37,7 +37,7 @@
     </div>
 </article>
 <hr>
-<div>
+<div class="mb-3">
     <a class="btn btn-secondary" href="{% url 'comment-create' post.id %}">comment</a>
 </div>
 {% for comment in post.comments.all %}
@@ -47,13 +47,13 @@
             <a class="mr-2" href="{% url 'user-post' comment.author.username %}">{{ comment.author }}</a>
             <small>{{ comment.date_posted|date:"M. d, Y" }}</small>
         </div>
+        <p class="article-content">{{ comment.content }}</p>
+        {% if comment.author == user%}
         <div>
-            {% if post.author == user%}
                 <a class="text-secondary mt-1 mb-1" href="{% url 'comment-update' comment.id %}">Update</a>
                 <a class="text-danger mt-1 mb-1" href="{% url 'comment-delete' comment.id %}">Delete</a>
-            {% endif %}
-            </div>
-        <p class="article-content">{{ comment.content }}</p>
+        </div>
+        {% endif %}
     </div>
 </article>
 {% empty %}

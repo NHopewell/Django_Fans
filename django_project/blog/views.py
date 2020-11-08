@@ -148,6 +148,13 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
         return super().form_valid(form)
 
+
+    def get_success_url(self):
+        comment = self.get_object() 
+        return reverse('post-detail', kwargs={'pk': comment.post.id})
+
+    
+
     def test_func(self):
         """
         UserPassesTestMixin method to validate current
@@ -164,7 +171,11 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     Post Detail route: blog/post_detail.html route
     """
     model = Comment
-    success_url = "/"
+    #success_url = "/"
+
+    def get_success_url(self):
+        comment = self.get_object() 
+        return reverse('post-detail', kwargs={'pk': comment.post.id})
 
     def test_func(self):
         """
