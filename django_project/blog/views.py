@@ -38,17 +38,23 @@ class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_post.html' 
     context_object_name = 'posts'
+    ordering = ['-date_posted'] # order posts ascending
     paginate_by = 4
 
-    def get_queset(self):
+    def get_queryset(self):
         """
         Override to change what the ListView renders
         """
         # get user obj from db if exists, else return 404
         user = get_object_or_404(User, username=self.kwargs.get('username'))
 
+        print('>>>>>>>>')
+        print(user)
+        print('>>>>>>>>')
+
+
         # filter posts by user, order by date ascending
-        return Post.objects.filter(author=user).order_by('-date_posted')
+        return Post.objects.filter(author=user)
 
 class PostDetailView(DetailView):
     """
