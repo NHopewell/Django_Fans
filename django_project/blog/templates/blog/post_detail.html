@@ -11,8 +11,12 @@
         </div>
         <div>
             {% if post.author == user%}
-                <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' post.id %}">Update</a>
-                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
+            <a class="text-secondary mt-1 mb-1" href="{% url 'post-update' post.id %}">
+                <i class="fas fa-edit"></i>
+            </a>
+            <a class="text-secondary mt-1 mb-1" href="{% url 'post-delete' post.id %}">
+                <i class="fas fa-trash-alt"></i>
+            </a>
             {% endif %}
         </div>
         <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
@@ -51,8 +55,12 @@
         <p class="article-content">{{ comment.content }}</p>
         {% if comment.author == user%}
         <div>
-                <a class="text-secondary mt-1 mb-1" href="{% url 'comment-update' comment.id %}">Update</a>
-                <a class="text-danger mt-1 mb-1" href="{% url 'comment-delete' comment.id %}">Delete</a>
+                <a class="text-secondary mt-1 mb-1" href="{% url 'comment-update' comment.id %}">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="text-secondary mt-1 mb-1" href="{% url 'comment-delete' comment.id %}">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
         </div>
         {% endif %}
     </div>
@@ -62,3 +70,7 @@
 {% endfor %}
 {% endif %}
 {% endblock content %}
+
+<a href="https://www.linkedin.com/in/nick-hopewell-a83223132/" target="blank">
+    <i class="fab fa-linkedin fa-2x"></i>
+</a>
