@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin, 
     UserPassesTestMixin
 )
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView, 
@@ -69,6 +70,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     # override form_valid to add author before form is submitted
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.add_message(self.request, messages.SUCCESS, 'Your post has been added.')
 
         return super().form_valid(form)
 
@@ -104,6 +106,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
     model = Post
     success_url = "/"
+    success_message = 'Your post has been removed.'
 
     def test_func(self):
         """
@@ -114,7 +117,13 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         # ensure current user is post author
         return True if self.request.user == post.author else False
+
+    def delete(self, request, *args, **kwargs):
+        messages.add_message(self.request, messages.INFO, self.success_message)
+
+        return super(PostDeleteView, self).delete(request, *args, **kwargs)
     
+
 class CommentCreateView(LoginRequiredMixin, CreateView):
     """
     Post create route: blog/post_create.html route

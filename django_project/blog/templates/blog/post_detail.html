@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
+
 {% if post.author.username == 'Nick' %}
 <article class="media content-section admin-section">
     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
