@@ -215,6 +215,14 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
+.comment-content {
+  white-space: pre-line;
+  color: #a9a9a9;
+  font-weight: 500;
+  font-size: 1rem;
+  font-family: "Raleway", sans-serif;
+}
+
 #page-container {
   position: relative;
   min-height: 100vh;
