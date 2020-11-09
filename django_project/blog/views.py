@@ -30,7 +30,7 @@ class PostListView(ListView):
     template_name = 'blog/home.html' #Default convention: <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
     ordering = ['-date_posted'] # order posts ascending
-    paginate_by = 4 # paginate home page 8 posts per
+    paginate_by = 3 # paginate home page 8 posts per
 
 class UserPostListView(ListView):
     """
@@ -41,7 +41,7 @@ class UserPostListView(ListView):
     template_name = 'blog/user_post.html' 
     context_object_name = 'posts'
     ordering = ['-date_posted'] # order posts ascending
-    paginate_by = 4
+    paginate_by = 3
 
     def get_queryset(self):
         """
